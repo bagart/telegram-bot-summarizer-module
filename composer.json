@@ -32,7 +32,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "BAGArt\\TelegramBotSummarizer\\Tests\\": "tests/"
+            "BAGArt\\TelegramBotSummarizer\\Tests\\": "tests/",
+            "BAGArt\\TelegramBotSummarizer\\Database\\Factories\\": "database/factories/"
         }
     },
     "scripts": {
