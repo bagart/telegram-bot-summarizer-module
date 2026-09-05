@@ -16,6 +16,8 @@ use BAGArt\TelegramBotSummarizer\Processing\CollectMessageProcessor;
 use BAGArt\TelegramBotSummarizer\Processing\MyChatMemberProcessor;
 use BAGArt\TelegramBotSummarizer\Processing\SummarizerCancelCommandProcessor;
 use BAGArt\TelegramBotSummarizer\Processing\SummarizerCommandProcessor;
+use BAGArt\TelegramBotSummarizer\Web\SummarizerUiHandler;
+use BAGArt\TelegramBotSummarizer\Web\SummarizerWebUi;
 
 /**
  * Chat summarizer module: collects group messages, produces scheduled LLM
@@ -36,6 +38,7 @@ class SummarizerModule implements TgModuleContract
             capabilities: [
                 TgModuleCapability::Processor,
                 TgModuleCapability::Command,
+                TgModuleCapability::Ui,
             ],
             // The module (menu commands) is discoverable in every chat; actual
             // collection/digests stay off until the chat admin opts in via
@@ -70,5 +73,7 @@ class SummarizerModule implements TgModuleContract
             SummarizerCancelCommandProcessor::NAME,
             SummarizerCancelCommandProcessor::class,
         );
+
+        $registrar->webUi(SummarizerWebUi::class)->webApi(SummarizerUiHandler::class);
     }
 }

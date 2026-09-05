@@ -19,7 +19,7 @@ class SummarizerRun extends Model
 
     protected static function newFactory(): \Illuminate\Database\Eloquent\Factories\Factory
     {
-        return \Database\Factories\SummarizerRunFactory::new();
+        return \BAGArt\TelegramBotSummarizer\Database\Factories\SummarizerRunFactory::new();
     }
 
     public const STATUS_SUCCESS = 'success';

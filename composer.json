@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "bagart/telegram-bot-summarizer-module",
+    "name": "bagart/tgbot-module-summarizer",
     "description": "Chat summarizer module for the Telegram bot platform: message collection, scheduled LLM digests and an in-chat admin panel",
     "type": "library",
     "license": "MIT",
@@ -40,5 +40,28 @@
         "test": [
             "@php ../../../vendor/bin/phpunit --testsuite SummarizerModule"
         ]
+    },
+    "repositories": {
+        "telegram-bot-lib": {
+            "type": "path",
+            "url": "../telegram-bot-lib"
+        },
+        "php-async-kernel-lib": {
+            "type": "path",
+            "url": "../php-async-kernel-lib"
+        },
+        "php-async-kernel-client": {
+            "type": "path",
+            "url": "../php-async-kernel-client"
+        },
+        "baseline": {
+            "type": "path",
+            "url": "../telegram-platform-devops-baseline"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "bagart/telegram-platform-devops-baseline": "@dev"
     }
 }

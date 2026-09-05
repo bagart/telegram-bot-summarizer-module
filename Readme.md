@@ -1,4 +1,4 @@
-# bagart/telegram-bot-summarizer-module
+# bagart/tgbot-module-summarizer
 
 Chat summarizer module for the [Telegram bot platform](../..): collects group
 messages, produces scheduled LLM digests (themes, positions, witty
@@ -14,8 +14,8 @@ it via `/summarizer`.
   chat-member updates and callback queries; `/summarizer` and
   `/summarizer_cancel` commands).
 - `summarizer:digests` Artisan command — cron entry scanning enabled chats and
-  producing due digests (schedule it from the host app, see
-  `routes/console.php` there).
+  producing due digests (self-registered into `telegram.modules_schedule`;
+  users adjust periodicity in the host's `config/schedule-overrides.php`).
 - `config/summarizer.php` — platform defaults and operational limits
   (env-driven).
 - Migrations for `summarizer_tokens`, `summarizer_messages`, `summarizer_runs`,
@@ -23,23 +23,29 @@ it via `/summarizer`.
 
 ## Install (host app)
 
-1. Add a path repository and PSR-4 mapping in the host `composer.json`:
+Dev mode (this monorepo) — already wired, no steps needed: path repository +
+PSR-4 mapping in the host `composer.json`, provider registered in
+`bootstrap/providers.php`:
 
-   ```json
-   "repositories": [{ "type": "path", "url": "misc/BAGArt/telegram-bot-summarizer-module" }],
-   "autoload": { "psr-4": { "BAGArt\\TelegramBotSummarizer\\": "misc/BAGArt/telegram-bot-summarizer-module/src/" } }
-   ```
+```php
+BAGArt\TelegramBotSummarizer\TelegramBotSummarizerServiceProvider::class,
+```
 
-2. Register the provider in `bootstrap/providers.php`:
+Then `php artisan migrate` when the module is first enabled.
 
-   ```php
-   BAGArt\TelegramBotSummarizer\TelegramBotSummarizerServiceProvider::class,
-   ```
-
-3. `composer dump-autoload && php artisan migrate`.
+Prod mode (servers without `misc/`): `cmd/deps/install --mode=prod` resolves
+`bagart/tgbot-module-summarizer` from VCS sources via
+`composer.prod.json`. See AGENTS.md §Modules rule.
 
 ## Tests
 
 ```bash
 composer test   # from this directory; uses the host app's PHPUnit
 ```
+
+## Menu integration
+
+Menu-hub surface per `telegram-platform-menu/docs/tasks/menu_integration.md` (M-3c):
+`SummarizerWebUi` (§8.3 schema form over `SummarizerSettings` keys) and
+`SummarizerUiHandler` executing the `run-now` UiAction through
+`ModuleFactory::digestRunnerSync()` (Admin, chat-scoped).

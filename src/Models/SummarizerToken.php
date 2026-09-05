@@ -20,7 +20,7 @@ class SummarizerToken extends Model
 
     protected static function newFactory(): \Illuminate\Database\Eloquent\Factories\Factory
     {
-        return \Database\Factories\SummarizerTokenFactory::new();
+        return \BAGArt\TelegramBotSummarizer\Database\Factories\SummarizerTokenFactory::new();
     }
 
     protected $fillable = [

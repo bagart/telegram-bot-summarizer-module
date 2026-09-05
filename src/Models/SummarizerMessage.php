@@ -21,7 +21,7 @@ class SummarizerMessage extends Model
 
     protected static function newFactory(): \Illuminate\Database\Eloquent\Factories\Factory
     {
-        return \Database\Factories\SummarizerMessageFactory::new();
+        return \BAGArt\TelegramBotSummarizer\Database\Factories\SummarizerMessageFactory::new();
     }
 
     protected $fillable = [

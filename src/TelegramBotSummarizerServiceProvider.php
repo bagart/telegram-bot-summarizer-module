@@ -13,16 +13,11 @@ final class TelegramBotSummarizerServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/summarizer.php', 'summarizer');
 
-        // Composer-installed module discovery (config/telegram.php contract)
-        $providers = (array) Config::get('telegram.modules_providers', []);
-        Config::set('telegram.modules_providers', array_values(array_unique(array_merge(
-            $providers,
-            [SummarizerModule::class],
-        ))));
-
-        $this->commands([
-            Console\SummarizerDigestsCommand::class,
-        ]);
+        // The summarizer:digests schedule is declared in
+        // config/tg_modules.php (schedule) and registered by the module
+        // engine, with schedule-overrides.php user overrides applied.
+        // Artisan commands are declared in config/tg_modules.php (commands)
+        // and registered by the module engine.
     }
 
     public function boot(): void
