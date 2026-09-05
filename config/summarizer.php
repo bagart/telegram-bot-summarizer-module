@@ -7,7 +7,7 @@ declare(strict_types=1);
 | Summarizer Module
 |--------------------------------------------------------------------------
 |
-| Chat digest module (bagart/telegram-bot-summarizer-module). Per-chat
+| Chat digest module (bagart/tgbot-module-summarizer). Per-chat
 | settings live in tg_module_enablements.module_settings; these are
 | platform defaults and operational limits.
 |
